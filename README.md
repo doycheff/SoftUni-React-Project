@@ -2,12 +2,11 @@
 
 ## 1. Initialize Project
 
-- [x] Initialize git repo
-- [x] Add softuni practice server
-- [x] Add base vite react project as client
-- [x] CleanUp client
-- [ ] Add project resources
-- [ ] Convert html to jsx
+- [X] Initialize git repo
+- [X] Add softuni practice server
+- [X] Add base vite react project as client
+- [X] CleanUp client
+- [X] Add project resources
 - [ ] Separate html into components
 
 ## 2. React Router
