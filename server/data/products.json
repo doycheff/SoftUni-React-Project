@@ -1,0 +1,29 @@
+{
+    "eb9823ab-c3e8-4a14-b998-8c22ec246bd3": {
+        "_id": "eb9823ab-c3e8-4a14-b998-8c22ec246bd3",
+        "name": "Apple MacBook Pro 16",
+        "description": "Powerful and portable laptop featuring a stunning 16-inch Retina display, advanced graphics, and high-performance processors for professionals and creatives.",
+        "price": "2.399",
+        "category": "Laptops",
+        "image": "macbookpro16.jpg",
+        "stock": "In stock"
+    },
+    "ec9823ab-c3e8-4a14-b998-8c22ec246bd3": {
+        "_id": "ec9823ab-c3e8-4a14-b998-8c22ec246bd3",
+        "name": "Apple MacBook Air 15",
+        "description": "Ultra-portable and powerful laptop with a sleek 15-inch Retina display, efficient integrated graphics, and fast processors, ideal for everyday use and productivity.",
+        "price": "2.399",
+        "category": "Laptops",
+        "image": "macbookair15.jpg",
+        "stock": "In stock"
+    },
+    "ed9823ab-c3e8-4a14-b998-8c22ec246bd3": {
+        "_id": "ed9823ab-c3e8-4a14-b998-8c22ec246bd3",
+        "name": "Samsung Galaxy Fold 6",
+        "description": "Innovative foldable smartphone with a large, flexible display that unfolds to reveal a tablet-like experience. Packed with advanced features and powerful performance for multitasking and entertainment.",
+        "price": "2,199",
+        "category": "Smartphones",
+        "image": "SamsungGalaxyFold6.jpg",
+        "stock": "In stock"
+    }
+}
