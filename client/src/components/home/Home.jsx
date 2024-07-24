@@ -10,7 +10,7 @@ export default function Home() {
                         TechHaven
                     </h2>
                     <div className={styles.buttonContainer}>
-                        <Link to={'/products'} className={styles.booksButton}>View all products</Link>
+                        <Link to={'/products'} className={styles.productsButton}>View all products</Link>
                     </div>
                 </div>
             </div>
