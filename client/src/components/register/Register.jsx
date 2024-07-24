@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.jpg"
 
 export default function Register() {
     return (
@@ -7,11 +8,11 @@ export default function Register() {
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
                         alt="Your Company"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        className="mx-auto h-10 w-auto"
+                        src={logo}
+                        className="rounded-md mx-auto h-10 w-auto"
                     />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Sign up for your account
+                        Create an account
                     </h2>
                 </div>
 

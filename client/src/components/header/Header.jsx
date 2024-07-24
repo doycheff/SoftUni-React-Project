@@ -26,6 +26,7 @@ export default function Header() {
                     <img
                         alt="TechHaven"
                         src={logo}
+                        className="rounded-md"
                     />
                 </div>
                 <nav className="flex flex-1 justify-center">
