@@ -1,8 +1,53 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom";
+
+import productsAPI from "../../api/products-api";
+
 export default function ProductCreate() {
+    const [product, setProduct] = useState({
+        name: '',
+        category: '',
+        price: '',
+        description: '',
+        image: ''
+    })
+
+    const navigate = useNavigate();
+
+    const onChange = (e) => {
+        setProduct(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const createProductSubmitHandler = async (e) => {
+        e.preventDefault();
+
+        const values = Object.fromEntries(new FormData(e.currentTarget));
+
+        const data = {
+            name: values.name,
+            category: values.category,
+            price: values.price,
+            description: values.description,
+            image: values.image
+        }
+
+        try {
+            await productsAPI.createProduct(data)
+            navigate('/products');
+        } catch (error) {
+            console.error(error.message);
+            throw error;
+        }
+
+    }
 
     return (
         <div className="flex items-center justify-center min-h-screen">
             <form
+                onSubmit={createProductSubmitHandler}
                 className="w-full max-w-lg bg-gray-200 p-8 rounded-lg"
             >
                 <div className="grid gap-6 mb-6">
@@ -19,6 +64,8 @@ export default function ProductCreate() {
                             name="name"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
+                            value={product.name}
+                            onChange={onChange}
                         />
                     </div>
                     <div>
@@ -33,6 +80,8 @@ export default function ProductCreate() {
                             name="category"
                             autoComplete="category"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                            value={product.category}
+                            onChange={onChange}
                         >
                             <option value="">Select category</option>
                             <option value="Laptop">Laptop</option>
@@ -53,6 +102,8 @@ export default function ProductCreate() {
                             name="price"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
+                            value={product.price}
+                            onChange={onChange}
                         />
                     </div>
                     <div>
@@ -67,6 +118,8 @@ export default function ProductCreate() {
                             name="description"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
+                            value={product.description}
+                            onChange={onChange}
                         />
                     </div>
 
@@ -82,11 +135,12 @@ export default function ProductCreate() {
                             id="image"
                             type="text"
                             name="image"
+                            value={product.image}
+                            onChange={onChange}
                         />
                     </div>
                 </div>
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    
                     <button
                         type="submit"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

@@ -12,9 +12,12 @@ const getAll = async () => {
 
 const getOne = (productId) => request.get(`${BASE_URL}/${productId}`);
 
+const createProduct = (data) => request.post(`${BASE_URL}`, data);
+
 const productsAPI = {
     getAll,
     getOne,
+    createProduct
 }
 
 export default productsAPI;
