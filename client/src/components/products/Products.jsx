@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import * as productsAPI from '../../api/products-api';
 
 export default function Products() {
+    const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        productsAPI.getAll()
+            .then(result => setProducts(result));
+    }, []);
 
     return (
         <div>
@@ -9,7 +17,7 @@ export default function Products() {
 
                 <h2 className="text-4xl font-bold tracking-tight text-gray-900 text-center mb-8">Products</h2>
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                    <div  className="group relative">
+                    <div className="group relative">
                         <Link to={`/products/`} >
                             <div className="aspect-w-1 aspect-h-1 rounded-md overflow-hidden lg:h-80">
                                 <img
@@ -21,7 +29,7 @@ export default function Products() {
                         <div className="mt-4 flex justify-between">
                             <div>
                                 <h3 className="text-lg font-medium text-gray-900">
-                                    Apple Macbook 
+                                    Apple Macbook
                                 </h3>
                             </div>
                             <p className="text-lg font-medium text-gray-900">$2000</p>
