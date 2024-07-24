@@ -4,9 +4,9 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import Products from "./components/products/Products";
-import ProductCreate from "./components/products/product-create/ProductCreate";
-import ProductDetails from "./components/products/product-details/ProductDetails";
+import Products from "./components/product-list/ProductList";
+import ProductCreate from "./components/product-create/ProductCreate";
+import ProductDetails from "./components/product-details/ProductDetails";
 
 function App() {
 
