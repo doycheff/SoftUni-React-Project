@@ -14,10 +14,13 @@ const getOne = (productId) => request.get(`${BASE_URL}/${productId}`);
 
 const createProduct = (data) => request.post(`${BASE_URL}`, data);
 
+const deleteProduct = async (productId) => await request.del(`${BASE_URL}/${productId}`);
+
 const productsAPI = {
     getAll,
     getOne,
-    createProduct
+    createProduct,
+    deleteProduct
 }
 
 export default productsAPI;
