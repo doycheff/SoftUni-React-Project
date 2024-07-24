@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import * as productsAPI from '../../api/products-api';
+import productsAPI from '../../api/products-api';
+
 import ProductListItem from './product-list-item/ProductListItem';
 
 export default function Products() {
