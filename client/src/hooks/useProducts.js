@@ -13,5 +13,25 @@ export function useGetAllProducts() {
         })()
     }, []);
 
-    return [products, setProducts];
+    return [
+        products,
+        setProducts
+    ];
+}
+
+export function useGetOneProduct(productId) {
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+        (async () => {
+            const result = await productsAPI.getOne(productId);
+
+            setProduct(result);
+        })()
+    }, [productId])
+
+    return [
+        product,
+        setProduct
+    ];
 }

@@ -1,20 +1,12 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 
 import productsAPI from '../../api/products-api';
+import { useGetOneProduct } from '../../hooks/useProducts';
 
 export default function ProductDetails() {
-    const [product, setProduct] = useState({});
     const { productId } = useParams();
+    const [product, setProduct] = useGetOneProduct(productId);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        (async () => {
-            const result = await productsAPI.getOne(productId);
-
-            setProduct(result);
-        })()
-    }, [])
 
     const deleteProductSubmitHandler = async () => {
         await productsAPI.deleteProduct(productId);
