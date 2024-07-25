@@ -1,25 +1,34 @@
-import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/logo.jpg"
+import logo from "../../assets/logo.jpg";
 
-const navigation = [
-    { name: 'Home', href: '/', current: false },
-    { name: 'Products', href: '/products', current: false },
-    { name: 'Create an item', href: '/products/create', current: false },
-    { name: 'My Profile', href: '/myProfile', current: false },
-    { name: 'Logout', href: '/logout', current: false },
-    { name: 'Login', href: '/login', current: false },
-    { name: 'Register', href: '/register', current: false },
-]
+import { Link, useLocation } from "react-router-dom";
+import { useContext } from "react";
+
+import { AuthContext } from "../../contexts/AuthContext";
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ');
 }
 
 export default function Header() {
     const location = useLocation();
+    const { isAuthenticated } = useContext(AuthContext);
+
+    const navigation = isAuthenticated
+        ? [
+            { name: 'Home', href: '/', current: false },
+            { name: 'Products', href: '/products', current: false },
+            { name: 'Create an item', href: '/products/create', current: false },
+            { name: 'My Profile', href: '/myProfile', current: false },
+            { name: 'Logout', href: '/logout', current: false },
+        ]
+        : [
+            { name: 'Home', href: '/', current: false },
+            { name: 'Products', href: '/products', current: false },
+            { name: 'Login', href: '/login', current: false },
+            { name: 'Register', href: '/register', current: false },
+        ];
 
     return (
-
         <header className="bg-gray-800">
             <div className="flex items-center justify-center h-16 px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-shrink-0 h-12">
@@ -32,7 +41,7 @@ export default function Header() {
                 <nav className="flex flex-1 justify-center">
                     <div className="flex space-x-4">
                         {navigation.map((item) => {
-                            const isCurrent = location.pathname == item.href;
+                            const isCurrent = location.pathname === item.href;
                             return (
                                 <Link
                                     to={item.href}

@@ -15,7 +15,6 @@ export default function Register() {
     const registerHandler = async ({ email, password, repass }) => {
         if (password != repass) {
             return setError('Passwords don\'t match!');
-
         }
 
         try {
