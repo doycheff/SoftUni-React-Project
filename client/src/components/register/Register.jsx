@@ -1,7 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegister } from "../../hooks/useAuth";
+
 import logo from "../../assets/logo.jpg"
+import { useForm } from "../../hooks/useForm";
+import { useState } from "react";
+
+const initialValues = { email: '', password: '', repass: '' };
 
 export default function Register() {
+    const register = useRegister();
+    const navigate = useNavigate();
+    const [error, setError] = useState('');
+
+    const registerHandler = async ({ email, password, repass }) => {
+        if (password != repass) {
+            return setError('Passwords don\'t match!');
+
+        }
+
+        try {
+            await register(email, password)
+            navigate('/')
+        } catch (err) {
+            setError(err.message);
+        }
+    }
+
+    const {
+        values,
+        changeHandler,
+        submitHandler
+    } = useForm(initialValues, registerHandler)
+
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -17,7 +47,16 @@ export default function Register() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form onSubmit={submitHandler} className="space-y-6">
+                        {error && (
+                            <div className="rounded-md bg-red-50 p-4">
+                                <div className="flex">
+                                    <div className="ml-3">
+                                        <h3 className="text-sm font-medium text-red-800">{error}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
@@ -27,6 +66,8 @@ export default function Register() {
                                     id="email"
                                     name="email"
                                     type="email"
+                                    value={values.email}
+                                    onChange={changeHandler}
                                     required
                                     autoComplete="email"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -45,6 +86,8 @@ export default function Register() {
                                     id="password"
                                     name="password"
                                     type="password"
+                                    value={values.password}
+                                    onChange={changeHandler}
                                     required
                                     autoComplete="current-password"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -62,7 +105,9 @@ export default function Register() {
                                 <input
                                     id="repass"
                                     name="repass"
-                                    type="repass"
+                                    type="password"
+                                    value={values.repass}
+                                    onChange={changeHandler}
                                     required
                                     autoComplete="current-password"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
