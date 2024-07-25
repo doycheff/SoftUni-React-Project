@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
@@ -7,11 +8,24 @@ import Register from "./components/register/Register";
 import Products from "./components/product-list/ProductList";
 import ProductCreate from "./components/product-create/ProductCreate";
 import ProductDetails from "./components/product-details/ProductDetails";
+import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
+    const [authState, setAuthState] = useState({});
+
+    const changeAuthState = (state) => {
+        setAuthState(state);
+    }
+
+    const contextData = {
+        email: authState.email,
+        accessToken: authState.accessToken,
+        isAuthenticated: !!authState.email,
+        changeAuthState
+    }
 
     return (
-        <>
+        <AuthContext.Provider value={contextData}>
             <Header />
 
             <Routes>
@@ -25,7 +39,7 @@ function App() {
                 <Route path='/products/create' element={<ProductCreate />} />
 
             </Routes>
-        </>
+        </AuthContext.Provider>
     )
 }
 
