@@ -1,6 +1,6 @@
-# softuni-react-project
+# SoftUni-React-Project
 
-### How to install the dependencies
+### How to install the dependencies and start the project:
 ```
 cd client
 npm install -D tailwindcss postcss autoprefixer
