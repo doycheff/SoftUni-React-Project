@@ -9,7 +9,7 @@ npm run dev
 ```
 
 
-### Start the server by open a new terminal and do:
+### Start the server by open a new terminal and do this:
 ```
 cd server
 node server.js
