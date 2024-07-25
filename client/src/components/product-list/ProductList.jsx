@@ -1,16 +1,8 @@
-import { useEffect, useState } from 'react';
-
-import productsAPI from '../../api/products-api';
-
+import { useGetAllProducts } from '../../hooks/useProducts';
 import ProductListItem from './product-list-item/ProductListItem';
 
 export default function Products() {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        productsAPI.getAll()
-            .then(result => setProducts(result));
-    }, []);
+    const [products] = useGetAllProducts();
 
     return (
         <div>
