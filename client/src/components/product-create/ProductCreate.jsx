@@ -1,7 +1,5 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
-import productsAPI from "../../api/products-api";
 import { useForm } from "../../hooks/useForm";
 import { useCreateProduct } from "../../hooks/useProducts";
 
@@ -23,6 +21,7 @@ export default function ProductCreate() {
 
             navigate(`/products/${productId}/details`);
         } catch (err) {
+            // TODO: Set error state and display error
             console.log(err.message);
         }
     }
@@ -32,37 +31,6 @@ export default function ProductCreate() {
         changeHandler,
         submitHandler
     } = useForm(initialValues, createHandler);
-
-
-    // const onChange = (e) => {
-    //     setProduct(state => ({
-    //         ...state,
-    //         [e.target.name]: e.target.value
-    //     }))
-    // }
-
-    // const createProductSubmitHandler = async (e) => {
-    //     e.preventDefault();
-
-    //     const values = Object.fromEntries(new FormData(e.currentTarget));
-
-    //     const data = {
-    //         name: values.name,
-    //         category: values.category,
-    //         price: values.price,
-    //         description: values.description,
-    //         image: values.image
-    //     }
-
-    //     try {
-    //         await productsAPI.createProduct(data)
-    //         navigate('/products');
-    //     } catch (error) {
-    //         console.error(error.message);
-    //         throw error;
-    //     }
-
-    // }
 
     return (
         <div className="flex items-center justify-center min-h-screen">
