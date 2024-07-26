@@ -2,52 +2,72 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 import productsAPI from "../../api/products-api";
+import { useForm } from "../../hooks/useForm";
+import { useCreateProduct } from "../../hooks/useProducts";
+
+const initialValues = {
+    name: '',
+    category: '',
+    price: '',
+    description: '',
+    image: ''
+}
 
 export default function ProductCreate() {
-    const [product, setProduct] = useState({
-        name: '',
-        category: '',
-        price: '',
-        description: '',
-        image: ''
-    })
-
     const navigate = useNavigate();
+    const createProduct = useCreateProduct();
 
-    const onChange = (e) => {
-        setProduct(state => ({
-            ...state,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const createProductSubmitHandler = async (e) => {
-        e.preventDefault();
-
-        const values = Object.fromEntries(new FormData(e.currentTarget));
-
-        const data = {
-            name: values.name,
-            category: values.category,
-            price: values.price,
-            description: values.description,
-            image: values.image
-        }
-
+    const createHandler = async (values) => {
         try {
-            await productsAPI.createProduct(data)
-            navigate('/products');
-        } catch (error) {
-            console.error(error.message);
-            throw error;
-        }
+            const { _id: productId } = await createProduct(values);
 
+            navigate(`/products/${productId}/details`);
+        } catch (err) {
+            console.log(err.message);
+        }
     }
+
+    const {
+        values,
+        changeHandler,
+        submitHandler
+    } = useForm(initialValues, createHandler);
+
+
+    // const onChange = (e) => {
+    //     setProduct(state => ({
+    //         ...state,
+    //         [e.target.name]: e.target.value
+    //     }))
+    // }
+
+    // const createProductSubmitHandler = async (e) => {
+    //     e.preventDefault();
+
+    //     const values = Object.fromEntries(new FormData(e.currentTarget));
+
+    //     const data = {
+    //         name: values.name,
+    //         category: values.category,
+    //         price: values.price,
+    //         description: values.description,
+    //         image: values.image
+    //     }
+
+    //     try {
+    //         await productsAPI.createProduct(data)
+    //         navigate('/products');
+    //     } catch (error) {
+    //         console.error(error.message);
+    //         throw error;
+    //     }
+
+    // }
 
     return (
         <div className="flex items-center justify-center min-h-screen">
             <form
-                onSubmit={createProductSubmitHandler}
+                onSubmit={submitHandler}
                 className="w-full max-w-lg bg-gray-200 p-8 rounded-lg"
             >
                 <div className="grid gap-6 mb-6">
@@ -64,8 +84,8 @@ export default function ProductCreate() {
                             name="name"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
-                            value={product.name}
-                            onChange={onChange}
+                            value={values.name}
+                            onChange={changeHandler}
                         />
                     </div>
                     <div>
@@ -80,8 +100,8 @@ export default function ProductCreate() {
                             name="category"
                             autoComplete="category"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                            value={product.category}
-                            onChange={onChange}
+                            value={values.category}
+                            onChange={changeHandler}
                         >
                             <option value="">Select category</option>
                             <option value="Laptop">Laptop</option>
@@ -102,8 +122,8 @@ export default function ProductCreate() {
                             name="price"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
-                            value={product.price}
-                            onChange={onChange}
+                            value={values.price}
+                            onChange={changeHandler}
                         />
                     </div>
                     <div>
@@ -118,8 +138,8 @@ export default function ProductCreate() {
                             name="description"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
-                            value={product.description}
-                            onChange={onChange}
+                            value={values.description}
+                            onChange={changeHandler}
                         />
                     </div>
 
@@ -135,8 +155,8 @@ export default function ProductCreate() {
                             id="image"
                             type="text"
                             name="image"
-                            value={product.image}
-                            onChange={onChange}
+                            value={values.image}
+                            onChange={changeHandler}
                         />
                     </div>
                 </div>

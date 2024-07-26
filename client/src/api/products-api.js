@@ -1,6 +1,6 @@
 import * as request from './requester';
 
-const BASE_URL = 'http://localhost:3030/jsonstore/products'
+const BASE_URL = 'http://localhost:3030/data/products'
 
 const getAll = async () => {
     const result = await request.get(BASE_URL);
@@ -12,7 +12,7 @@ const getAll = async () => {
 
 const getOne = (productId) => request.get(`${BASE_URL}/${productId}`);
 
-const createProduct = (data) => request.post(`${BASE_URL}`, data);
+const createProduct = (productData) => request.post(`${BASE_URL}`, productData);
 
 const deleteProduct = async (productId) => await request.del(`${BASE_URL}/${productId}`);
 
