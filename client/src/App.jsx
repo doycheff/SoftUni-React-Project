@@ -11,9 +11,13 @@ import ProductDetails from "./components/product-details/ProductDetails";
 import { AuthContext } from "./contexts/AuthContext";
 
 function App() {
+    // TODO: Remove this from App component
     const [authState, setAuthState] = useState({});
 
     const changeAuthState = (state) => {
+        // TODO: Quick solution, fix by implementing persisted authState
+        localStorage.setItem('accessToken', state.accessToken);
+
         setAuthState(state);
     }
 
