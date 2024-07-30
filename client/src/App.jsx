@@ -8,29 +8,13 @@ import Register from "./components/register/Register";
 import Products from "./components/product-list/ProductList";
 import ProductCreate from "./components/product-create/ProductCreate";
 import ProductDetails from "./components/product-details/ProductDetails";
-import { AuthContext } from "./contexts/AuthContext";
+import { AuthContextProvide } from "./contexts/AuthContext";
 
 function App() {
-    // TODO: Remove this from App component
-    const [authState, setAuthState] = useState({});
-
-    const changeAuthState = (state) => {
-        // TODO: Quick solution, fix by implementing persisted authState
-        localStorage.setItem('accessToken', state.accessToken);
-
-        setAuthState(state);
-    }
-
-    const contextData = {
-        userId: authState._id,
-        email: authState.email,
-        accessToken: authState.accessToken,
-        isAuthenticated: !!authState.email,
-        changeAuthState
-    }
+    
 
     return (
-        <AuthContext.Provider value={contextData}>
+        <AuthContextProvide>
             <Header />
 
             <Routes>
@@ -44,7 +28,7 @@ function App() {
                 <Route path='/products/create' element={<ProductCreate />} />
 
             </Routes>
-        </AuthContext.Provider>
+        </AuthContextProvide>
     )
 }
 
