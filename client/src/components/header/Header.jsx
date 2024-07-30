@@ -1,9 +1,8 @@
 import logo from "../../assets/logo.jpg";
 
 import { Link, useLocation } from "react-router-dom";
-import { useContext } from "react";
 
-import { AuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -11,7 +10,7 @@ function classNames(...classes) {
 
 export default function Header() {
     const location = useLocation();
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated } = useAuthContext();
 
     const navigation = isAuthenticated
         ? [

@@ -6,7 +6,7 @@ async function requester(method, url, data) {
     if (accessToken) {
         options.headers = {
             ...options.headers,
-            'X-Authorization': accessToken
+            'X-Authorization': accessToken,
         }
     }
 
@@ -17,7 +17,7 @@ async function requester(method, url, data) {
     if (data) {
         options.headers = {
             ...options.headers,
-            'Content-Type': "application/json"
+            'Content-Type': 'application/json'
         };
 
         options.body = JSON.stringify(data);

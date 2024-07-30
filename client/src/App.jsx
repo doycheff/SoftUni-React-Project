@@ -8,13 +8,13 @@ import Register from "./components/register/Register";
 import Products from "./components/product-list/ProductList";
 import ProductCreate from "./components/product-create/ProductCreate";
 import ProductDetails from "./components/product-details/ProductDetails";
-import { AuthContextProvide } from "./contexts/AuthContext";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 function App() {
     
 
     return (
-        <AuthContextProvide>
+        <AuthContextProvider>
             <Header />
 
             <Routes>
@@ -28,7 +28,7 @@ function App() {
                 <Route path='/products/create' element={<ProductCreate />} />
 
             </Routes>
-        </AuthContextProvide>
+        </AuthContextProvider>
     )
 }
 
