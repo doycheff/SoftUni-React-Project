@@ -1342,7 +1342,7 @@
     var seedData = {
         products: {
             "dab3b5bf-2237-4f19-a49a-501e1f0fb52c": {
-                _ownerId: "84cf073d-4a29-45ae-b622-f0a123dd0c34",
+                _ownerId: "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
                 name: "Apple MacBook Pro 16",
                 category: "Laptop",
                 price: "1500",
