@@ -2,10 +2,12 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import productsAPI from '../../api/products-api';
 import { useGetOneProduct } from '../../hooks/useProducts';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function ProductDetails() {
     const { productId } = useParams();
     const [product, setProduct] = useGetOneProduct(productId);
+    const { userId } = useAuthContext();
     const navigate = useNavigate();
 
     const deleteProductSubmitHandler = async () => {
@@ -13,6 +15,7 @@ export default function ProductDetails() {
         navigate('/products');
     }
 
+    const isOwner = userId == product._ownerId;
 
     return (
         <div className="flex justify-center items-center min-h-screen ">
@@ -43,23 +46,25 @@ export default function ProductDetails() {
                             </dd>
                         </div>
                     </dl>
-                    <div className="mt-4 flex justify-center space-x-4">
-                        <button
-                            onClick={deleteProductSubmitHandler}
-                            type="button"
-                            className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                        >
-                            Delete
-                        </button>
-                        <Link to={`/product/${productId}/edit`}>
+                    {isOwner && (
+                        <div className="mt-4 flex justify-center space-x-4">
                             <button
+                                onClick={deleteProductSubmitHandler}
                                 type="button"
-                                className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             >
-                                Edit
+                                Delete
                             </button>
-                        </Link>
-                    </div>
+                            <Link to={`/product/${productId}/edit`}>
+                                <button
+                                    type="button"
+                                    className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                >
+                                    Edit
+                                </button>
+                            </Link>
+                        </div>)
+                    }
                 </div>
             </div>
         </div>
