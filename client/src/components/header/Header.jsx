@@ -1,10 +1,11 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 import logo from "../../assets/logo.jpg";
 
 import { Link, useLocation } from "react-router-dom";
 
 import { useAuthContext } from "../../contexts/AuthContext";
+import './Header.css';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -12,7 +13,7 @@ function classNames(...classes) {
 
 export default function Header() {
     const location = useLocation();
-    const { isAuthenticated, email, logout } = useAuthContext();
+    const { isAuthenticated, email } = useAuthContext();
 
     const navigation = isAuthenticated
         ? [
@@ -73,7 +74,7 @@ export default function Header() {
                     >
                         {isAuthenticated ? (
                             <div className='text-center'>
-                                <span className="text-black-300 text-md font-medium">
+                                <span className="email">
                                     {email}
                                 </span>
                                 <MenuItem>
