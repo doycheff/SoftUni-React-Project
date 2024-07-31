@@ -3,19 +3,30 @@ import { useState } from 'react';
 import productsAPI from '../../api/products-api';
 import { useGetOneProduct } from '../../hooks/useProducts';
 import { useAuthContext } from '../../contexts/AuthContext';
+import Modal from '../modal-dialog/ModalDialog';
 
 export default function ProductDetails() {
     const { productId } = useParams();
     const [product, setProduct] = useGetOneProduct(productId);
     const { userId } = useAuthContext();
     const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
 
-    const showModal = () => setIsModalOpen(true);
-    const hideModal = () => setIsModalOpen(false);
+    const showDeleteModal = () => setIsDeleteModalOpen(true);
+    const hideDeleteModal = () => setIsDeleteModalOpen(false);
+
+    const showBuyModal = () => setIsBuyModalOpen(true);
+    const hideBuyModal = () => setIsBuyModalOpen(false);
 
     const deleteProductSubmitHandler = async () => {
         await productsAPI.deleteProduct(productId);
+        navigate('/products');
+    }
+
+    const buyProductSubmitHandler = async () => {
+        // TODO: buy functionality
+        alert('Product bought successfully!');
         navigate('/products');
     }
 
@@ -54,7 +65,7 @@ export default function ProductDetails() {
                         {isOwner
                             ? (<>
                                 <button
-                                    onClick={showModal}
+                                    onClick={showDeleteModal}
                                     type="button"
                                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 >
@@ -63,13 +74,14 @@ export default function ProductDetails() {
                                 <Link to={`/product/${productId}/edit`}>
                                     <button
                                         type="button"
-                                        className="text-white bg-blue-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     >
                                         Edit
                                     </button>
                                 </Link>
                             </>)
                             : <button
+                                onClick={showBuyModal}
                                 type="button"
                                 className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                             >
@@ -79,31 +91,34 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
-            {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-lg font-semibold mb-4">Confirm Delete</h2>
-                        <p>Are you sure you want to delete this product?</p>
-                        <div className="mt-4 flex justify-end space-x-2">
-                            <button
-                                onClick={hideModal}
-                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={async () => {
-                                    await deleteProductSubmitHandler();
-                                    hideModal();
-                                }}
-                                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
+            <Modal
+                isOpen={isDeleteModalOpen}
+                onClose={hideDeleteModal}
+                onConfirm={async () => {
+                    await deleteProductSubmitHandler();
+                    hideDeleteModal();
+                }}
+                title="Confirm Delete"
+                message="Are you sure you want to delete this product?"
+                confirmText="Delete"
+                cancelText="Cancel"
+                buttonColor="bg-red-600 hover:bg-red-700"
+            />
+
+            <Modal
+                isOpen={isBuyModalOpen}
+                onClose={hideBuyModal}
+                onConfirm={async () => {
+                    await buyProductSubmitHandler();
+                    hideBuyModal();
+                }}
+                title="Confirm Purchase"
+                message="Are you sure you want to buy this product?"
+                confirmText="Buy"
+                cancelText="Cancel"
+                buttonColor="bg-green-600 hover:bg-green-700"
+            />
         </div>
     );
 }
