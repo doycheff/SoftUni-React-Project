@@ -10,7 +10,7 @@ function classNames(...classes) {
 
 export default function Header() {
     const location = useLocation();
-    const { isAuthenticated } = useAuthContext();
+    const { isAuthenticated, email } = useAuthContext();
 
     const navigation = isAuthenticated
         ? [
@@ -29,7 +29,7 @@ export default function Header() {
 
     return (
         <header className="bg-gray-800">
-            <div className="flex items-center justify-center h-16 px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-shrink-0 h-12">
                     <img
                         alt="TechHaven"
@@ -57,6 +57,11 @@ export default function Header() {
                         })}
                     </div>
                 </nav>
+                {isAuthenticated && (
+                    <div className="text-gray-300 text-lg font-medium">
+                        {email}
+                    </div>
+                )}
             </div>
         </header>
     );
