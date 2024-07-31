@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-
+import { useState } from 'react';
 import productsAPI from '../../api/products-api';
 import { useGetOneProduct } from '../../hooks/useProducts';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -9,6 +9,10 @@ export default function ProductDetails() {
     const [product, setProduct] = useGetOneProduct(productId);
     const { userId } = useAuthContext();
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => setIsModalOpen(true);
+    const hideModal = () => setIsModalOpen(false);
 
     const deleteProductSubmitHandler = async () => {
         await productsAPI.deleteProduct(productId);
@@ -18,7 +22,7 @@ export default function ProductDetails() {
     const isOwner = userId == product._ownerId;
 
     return (
-        <div className="flex justify-center items-center min-h-screen ">
+        <div className="flex justify-center items-center min-h-screen">
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
                 <div className="px-4 sm:px-0 text-center">
                     <h3 className="text-2xl font-semibold leading-7 text-gray-900">{product.name}</h3>
@@ -50,7 +54,7 @@ export default function ProductDetails() {
                         {isOwner
                             ? (<>
                                 <button
-                                    onClick={deleteProductSubmitHandler}
+                                    onClick={showModal}
                                     type="button"
                                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 >
@@ -75,9 +79,31 @@ export default function ProductDetails() {
                     </div>
                 </div>
             </div>
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                        <h2 className="text-lg font-semibold mb-4">Confirm Delete</h2>
+                        <p>Are you sure you want to delete this product?</p>
+                        <div className="mt-4 flex justify-end space-x-2">
+                            <button
+                                onClick={hideModal}
+                                className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={async () => {
+                                    await deleteProductSubmitHandler();
+                                    hideModal();
+                                }}
+                                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
-
-
-
 }
