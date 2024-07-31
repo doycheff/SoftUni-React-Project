@@ -1351,6 +1351,16 @@
                 _createdOn: 1721982772869,
                 _id: "dab3b5bf-2237-4f19-a49a-501e1f0fb52c"
             },
+            "39df90d0-852b-452d-a094-5da26f9dd79b": {
+                "_ownerId": "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
+                "name": "iPhone 15 Pro",
+                "category": "Smartphone",
+                "price": "1200",
+                "description": "A17 Pro chip с 6-ядрен GPU · Pro система камери. Най-авангардната ни 48MP основна камера 3x или 5x Telephoto камера. Ultra Wide камера ",
+                "image": "https://istyle.bg/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/i/p/iphone_15_pro_natural_titanium_pdp_image_position-1__en-us_1_3_3.jpg",
+                "_createdOn": 1722360446349,
+                "_id": "39df90d0-852b-452d-a094-5da26f9dd79b"
+            }
         },
         recipes: {
             "3987279d-0ad4-4afb-8ca9-5b256ae3b298": {
