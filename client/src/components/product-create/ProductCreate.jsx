@@ -42,7 +42,7 @@ export default function ProductCreate() {
                     <div>
                         <label
                             htmlFor="name"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
                         >
                             Name
                         </label>
@@ -50,7 +50,7 @@ export default function ProductCreate() {
                             type="text"
                             id="name"
                             name="name"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
                             value={values.name}
                             onChange={changeHandler}
@@ -59,7 +59,7 @@ export default function ProductCreate() {
                     <div>
                         <label
                             htmlFor="category"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
                         >
                             Category
                         </label>
@@ -80,7 +80,7 @@ export default function ProductCreate() {
                     <div className="relative">
                         <label
                             htmlFor="price"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
                         >
                             Price
                         </label>
@@ -88,7 +88,7 @@ export default function ProductCreate() {
                             type="number"
                             id="price"
                             name="price"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
                             value={values.price}
                             onChange={changeHandler}
@@ -97,14 +97,14 @@ export default function ProductCreate() {
                     <div>
                         <label
                             htmlFor="description"
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
                         >
                             Description
                         </label>
                         <textarea
                             id="description"
                             name="description"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
                             value={values.description}
                             onChange={changeHandler}
@@ -113,13 +113,13 @@ export default function ProductCreate() {
 
                     <div>
                         <label
-                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
                             htmlFor="image"
                         >
                             Image URL
                         </label>
                         <input
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             id="image"
                             type="text"
                             name="image"
