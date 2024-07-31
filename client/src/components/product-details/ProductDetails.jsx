@@ -46,25 +46,33 @@ export default function ProductDetails() {
                             </dd>
                         </div>
                     </dl>
-                    {isOwner && (
-                        <div className="mt-4 flex justify-center space-x-4">
-                            <button
-                                onClick={deleteProductSubmitHandler}
-                                type="button"
-                                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                            >
-                                Delete
-                            </button>
-                            <Link to={`/product/${productId}/edit`}>
+                    <div className="mt-4 flex justify-center space-x-4">
+                        {isOwner
+                            ? (<>
                                 <button
+                                    onClick={deleteProductSubmitHandler}
                                     type="button"
-                                    className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                    className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 >
-                                    Edit
+                                    Delete
                                 </button>
-                            </Link>
-                        </div>)
-                    }
+                                <Link to={`/product/${productId}/edit`}>
+                                    <button
+                                        type="button"
+                                        className="text-white bg-blue-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    >
+                                        Edit
+                                    </button>
+                                </Link>
+                            </>)
+                            : <button
+                                type="button"
+                                className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            >
+                                Buy
+                            </button>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
