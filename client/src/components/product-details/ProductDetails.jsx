@@ -49,7 +49,7 @@ export default function ProductDetails() {
                         <div className="py-6 flex justify-center">
                             <img
                                 src={product.image}
-                                className="rounded-lg shadow-md object-cover h-60 w-60"
+                                className="rounded-lg shadow-md object-cover h-60 w-100"
                             />
                         </div>
                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-2 text-center sm:text-center">
