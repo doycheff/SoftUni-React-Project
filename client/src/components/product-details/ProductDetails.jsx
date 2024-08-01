@@ -106,7 +106,7 @@ export default function ProductDetails() {
                     hideDeleteModal();
                 }}
                 title="Confirm Delete"
-                message={`Are you sure you want to delete ${product.title}?`}
+                message={`Are you sure you want to delete ${product.name}?`}
                 confirmText="Delete"
                 cancelText="Cancel"
                 buttonColor="bg-red-600 hover:bg-red-700"
