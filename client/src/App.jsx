@@ -11,9 +11,10 @@ import ProductEdit from "./components/product-edit/ProductEdit";
 import ProductDetails from "./components/product-details/ProductDetails";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
+import PrivateGuard from "./components/common/PrivateGuard";
 
 function App() {
-    
+
 
     return (
         <AuthContextProvider>
@@ -23,13 +24,15 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/logout' element={<Logout />} />
 
                 <Route path='/products' element={<Products />} />
                 <Route path='/products/:productId/details' element={<ProductDetails />} />
-                <Route path='/products/:productId/edit' element={<ProductEdit />} />
 
-                <Route path='/products/create' element={<ProductCreate />} />
+                <Route element={<PrivateGuard />}>
+                    <Route path='/logout' element={<Logout />} />
+                    <Route path='/products/create' element={<ProductCreate />} />
+                    <Route path='/products/:productId/edit' element={<ProductEdit />} />
+                </Route>
 
             </Routes>
         </AuthContextProvider>
