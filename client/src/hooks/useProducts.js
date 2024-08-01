@@ -20,7 +20,13 @@ export function useGetAllProducts() {
 }
 
 export function useGetOneProduct(productId) {
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState({
+        name: '',
+        category: '',
+        price: '',
+        description: '',
+        image: ''
+    });
 
     useEffect(() => {
         (async () => {

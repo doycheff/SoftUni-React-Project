@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
@@ -8,7 +7,9 @@ import Register from "./components/register/Register";
 import Logout from "./components/logout/Logout";
 import Products from "./components/product-list/ProductList";
 import ProductCreate from "./components/product-create/ProductCreate";
+import ProductEdit from "./components/product-edit/ProductEdit";
 import ProductDetails from "./components/product-details/ProductDetails";
+
 import { AuthContextProvider } from "./contexts/AuthContext";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
                 <Route path='/products' element={<Products />} />
                 <Route path='/products/:productId/details' element={<ProductDetails />} />
+                <Route path='/products/:productId/edit' element={<ProductEdit />} />
 
                 <Route path='/products/create' element={<ProductCreate />} />
 

@@ -1,5 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
+
 import productsAPI from '../../api/products-api';
 import { useGetOneProduct } from '../../hooks/useProducts';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -20,8 +21,13 @@ export default function ProductDetails() {
     const hideBuyModal = () => setIsBuyModalOpen(false);
 
     const deleteProductSubmitHandler = async () => {
-        await productsAPI.deleteProduct(productId);
-        navigate('/products');
+        try {
+            await productsAPI.deleteProduct(productId);
+
+            navigate('/products');
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 
     const buyProductSubmitHandler = async () => {
@@ -71,7 +77,7 @@ export default function ProductDetails() {
                                 >
                                     Delete
                                 </button>
-                                <Link to={`/product/${productId}/edit`}>
+                                <Link to={`/products/${productId}/edit`}>
                                     <button
                                         type="button"
                                         className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -100,7 +106,7 @@ export default function ProductDetails() {
                     hideDeleteModal();
                 }}
                 title="Confirm Delete"
-                message="Are you sure you want to delete this product?"
+                message={`Are you sure you want to delete ${product.title}?`}
                 confirmText="Delete"
                 cancelText="Cancel"
                 buttonColor="bg-red-600 hover:bg-red-700"
@@ -114,7 +120,7 @@ export default function ProductDetails() {
                     hideBuyModal();
                 }}
                 title="Confirm Purchase"
-                message="Are you sure you want to buy this product?"
+                message={`Are you sure you want to buy ${product.name}?`}
                 confirmText="Buy"
                 cancelText="Cancel"
                 buttonColor="bg-green-600 hover:bg-green-700"
