@@ -9,7 +9,17 @@ const initialValues = {
     price: '',
     description: '',
     image: ''
-}
+};
+
+const validateForm = (values) => {
+    const errors = {};
+    if (!values.name) errors.name = "Name is required";
+    if (!values.category) errors.category = "Category is required";
+    if (!values.price) errors.price = "Price is required";
+    if (!values.description) errors.description = "Description is required";
+    if (!values.image) errors.image = "Image URL is required";
+    return errors;
+};
 
 export default function ProductCreate() {
     const navigate = useNavigate();
@@ -18,19 +28,18 @@ export default function ProductCreate() {
     const createHandler = async (values) => {
         try {
             const { _id: productId } = await createProduct(values);
-
             navigate(`/products/${productId}/details`);
         } catch (err) {
-            // TODO: Set error state and display error
-            console.log(err.message);
+            errors({ general: err.message });
         }
-    }
+    };
 
     const {
         values,
+        errors,
         changeHandler,
         submitHandler
-    } = useForm(initialValues, createHandler);
+    } = useForm(initialValues, createHandler, validateForm);
 
     return (
         <div className="flex items-center justify-center min-h-screen">
@@ -50,11 +59,13 @@ export default function ProductCreate() {
                             type="text"
                             id="name"
                             name="name"
-                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
+                            className={`bg-white border ${errors.name ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                             value={values.name}
                             onChange={changeHandler}
                         />
+                        {errors.name && (
+                            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                        )}
                     </div>
                     <div>
                         <label
@@ -66,8 +77,7 @@ export default function ProductCreate() {
                         <select
                             id="category"
                             name="category"
-                            autoComplete="category"
-                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${errors.category ? 'ring-red-500' : 'ring-gray-300'} focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6`}
                             value={values.category}
                             onChange={changeHandler}
                         >
@@ -76,6 +86,9 @@ export default function ProductCreate() {
                             <option value="Smartphone">Smartphone</option>
                             <option value="Tablet">Tablet</option>
                         </select>
+                        {errors.category && (
+                            <p className="text-red-500 text-xs mt-1">{errors.category}</p>
+                        )}
                     </div>
                     <div className="relative">
                         <label
@@ -88,11 +101,13 @@ export default function ProductCreate() {
                             type="number"
                             id="price"
                             name="price"
-                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
+                            className={`bg-white border ${errors.price ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                             value={values.price}
                             onChange={changeHandler}
                         />
+                        {errors.price && (
+                            <p className="text-red-500 text-xs mt-1">{errors.price}</p>
+                        )}
                     </div>
                     <div>
                         <label
@@ -104,13 +119,14 @@ export default function ProductCreate() {
                         <textarea
                             id="description"
                             name="description"
-                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
+                            className={`bg-white border ${errors.description ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                             value={values.description}
                             onChange={changeHandler}
                         />
+                        {errors.description && (
+                            <p className="text-red-500 text-xs mt-1">{errors.description}</p>
+                        )}
                     </div>
-
                     <div>
                         <label
                             className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
@@ -119,15 +135,23 @@ export default function ProductCreate() {
                             Image URL
                         </label>
                         <input
-                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-300 dark:placeholder-gray-700 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={`bg-white border ${errors.image ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
                             id="image"
                             type="text"
                             name="image"
                             value={values.image}
                             onChange={changeHandler}
                         />
+                        {errors.image && (
+                            <p className="text-red-500 text-xs mt-1">{errors.image}</p>
+                        )}
                     </div>
                 </div>
+                {errors.general && (
+                    <div className="mb-4 text-sm text-red-500">
+                        {errors.general}
+                    </div>
+                )}
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <button
                         type="submit"
@@ -139,5 +163,4 @@ export default function ProductCreate() {
             </form>
         </div>
     );
-
 }
