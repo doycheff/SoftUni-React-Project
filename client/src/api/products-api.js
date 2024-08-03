@@ -12,10 +12,10 @@ const getAll = async () => {
 
 const getLatest = async () => {
     const urlSearchParams = new URLSearchParams({
-        sortBy: '_createdOn desc',
+        sortBy: '_createdOn',
         pageSize: 3,
     })
-
+    
     const result = await request.get(`${BASE_URL}?${urlSearchParams.toString()}`);
 
     const latestProducts = Object.values(result);

@@ -7,10 +7,8 @@ export default function Home() {
 
     useEffect(() => {
         (async () => {
-            // TODO: modify to fetch only latest products
-            const result = await productsAPI.getAll();
-
-            setLatestProducts(result.reverse().slice(0, 3));
+            const result = await productsAPI.getLatest();
+            setLatestProducts(result);
         })()
     }, []);
 
