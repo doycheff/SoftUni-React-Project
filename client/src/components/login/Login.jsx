@@ -7,6 +7,13 @@ import logo from "../../assets/logo.jpg"
 
 const initialValues = { email: '', password: '' };
 
+const validateForm = (values) => {
+    const errors = {};
+    if (!values.email) errors.email = "Email is required";
+    if (!values.password) errors.password = "Password is required";
+    return errors;
+};
+
 export default function Login() {
     const login = useLogin();
     const navigate = useNavigate();
@@ -16,14 +23,15 @@ export default function Login() {
             await login(email, password)
             navigate('/')
         } catch (err) {
-            console.log(err.message);
+            errors({ general: err.message });
         }
     }
     const {
         values,
+        errors,
         changeHandler,
         submitHandler
-    } = useForm(initialValues, loginHandler);
+    } = useForm(initialValues, loginHandler, validateForm);
 
     return (
         <>
@@ -42,7 +50,8 @@ export default function Login() {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={submitHandler} className="space-y-6">
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="email"
+                                className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
                             </label>
                             <div className="mt-2">
@@ -53,8 +62,11 @@ export default function Login() {
                                     value={values.email}
                                     onChange={changeHandler}
                                     autoComplete="email"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={`bg-white border ${errors.email ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5`}
                                 />
+                                {errors.email && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                                )}
                             </div>
                         </div>
 
@@ -73,11 +85,18 @@ export default function Login() {
                                     value={values.password}
                                     onChange={changeHandler}
                                     autoComplete="current-password"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={`bg-white border ${errors.password ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5`}
                                 />
+                                {errors.password && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                                )}
                             </div>
                         </div>
-
+                        {errors.general && (
+                            <div className="mb-4 text-sm text-red-500">
+                                {errors.general}
+                            </div>
+                        )}
                         <div>
                             <button
                                 type="submit"

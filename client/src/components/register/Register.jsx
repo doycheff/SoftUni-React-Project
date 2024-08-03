@@ -1,35 +1,43 @@
 import { Link, useNavigate } from "react-router-dom";
+
+import { useForm } from "../../hooks/useForm";
 import { useRegister } from "../../hooks/useAuth";
 
 import logo from "../../assets/logo.jpg"
-import { useForm } from "../../hooks/useForm";
-import { useState } from "react";
 
 const initialValues = { email: '', password: '', repass: '' };
+
+const validateForm = (values) => {
+    const errors = {};
+    if (!values.email) errors.email = "Email is required";
+    if (!values.password) errors.password = "Password is required";
+    if (!values.repass) errors.repass = "Repeat Password is required";
+    return errors;
+};
 
 export default function Register() {
     const register = useRegister();
     const navigate = useNavigate();
-    const [error, setError] = useState('');
 
     const registerHandler = async ({ email, password, repass }) => {
         if (password != repass) {
-            return setError('Passwords don\'t match!');
+            return errors({ general: 'Passwords don\'t match!' });
         }
 
         try {
             await register(email, password)
             navigate('/')
         } catch (err) {
-            setError(err.message);
+            errors({ general: err.message });
         }
     }
 
     const {
         values,
+        errors,
         changeHandler,
         submitHandler
-    } = useForm(initialValues, registerHandler)
+    } = useForm(initialValues, registerHandler, validateForm)
 
     return (
         <>
@@ -47,15 +55,7 @@ export default function Register() {
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={submitHandler} className="space-y-6">
-                        {error && (
-                            <div className="rounded-md bg-red-50 p-4">
-                                <div className="flex">
-                                    <div className="ml-3">
-                                        <h3 className="text-sm font-medium text-red-800">{error}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
@@ -67,10 +67,12 @@ export default function Register() {
                                     type="email"
                                     value={values.email}
                                     onChange={changeHandler}
-                                    required
                                     autoComplete="email"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={`bg-white border ${errors.email ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5`}
                                 />
+                                {errors.email && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                                )}
                             </div>
                         </div>
 
@@ -87,10 +89,12 @@ export default function Register() {
                                     type="password"
                                     value={values.password}
                                     onChange={changeHandler}
-                                    required
                                     autoComplete="current-password"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={`bg-white border ${errors.password ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5`}
                                 />
+                                {errors.password && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                                )}
                             </div>
                         </div>
 
@@ -107,13 +111,19 @@ export default function Register() {
                                     type="password"
                                     value={values.repass}
                                     onChange={changeHandler}
-                                    required
                                     autoComplete="current-password"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={`bg-white border ${errors.repass ? 'border-red-500' : 'border-gray-300'} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5`}
                                 />
+                                {errors.repass && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.repass}</p>
+                                )}
                             </div>
                         </div>
-
+                        {errors.general && (
+                            <div className="mb-4 text-sm text-red-500">
+                                {errors.general}
+                            </div>
+                        )}
                         <div>
                             <button
                                 type="submit"

@@ -4,7 +4,6 @@ export function useForm(initialValues, submitCallback, validate) {
     const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState({});
 
-    // Reinitialize form values
     useEffect(() => {
         setValues(initialValues);
     }, [initialValues]);
