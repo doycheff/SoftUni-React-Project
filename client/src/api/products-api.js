@@ -23,6 +23,18 @@ const getLatest = async () => {
     return latestProducts;
 };
 
+const getUserProducts = async (_ownerId) => {
+    const urlSearchParams = new URLSearchParams({
+        where: `_ownerId="${_ownerId}"`,
+    })
+    
+    const result = await request.get(`${BASE_URL}?${urlSearchParams.toString()}`);
+
+    const productsUser = Object.values(result);
+    
+    return productsUser;
+}
+
 const getOne = (productId) => request.get(`${BASE_URL}/${productId}`);
 
 const createProduct = (productData) => request.post(`${BASE_URL}`, productData);
@@ -34,6 +46,7 @@ const updateProduct = (productId, productData) => request.put(`${BASE_URL}/${pro
 const productsAPI = {
     getAll,
     getLatest,
+    getUserProducts,
     getOne,
     createProduct,
     deleteProduct,
