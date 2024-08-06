@@ -94,16 +94,18 @@ export default function Header() {
                             </div>
                         ) :
                             <div className='text-center'>
-                                <MenuItem>
-                                    <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                        Login
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem>
-                                    <Link to="/Register" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                                        Register
-                                    </Link>
-                                </MenuItem>
+                                <div className={styles.menuContainer}>
+                                    <MenuItem>
+                                        <Link to="/login" className={styles.menuItem}>
+                                            Login
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/Register" className={styles.menuItem}>
+                                            Register
+                                        </Link>
+                                    </MenuItem>
+                                </div>
                             </div>
                         }
                     </MenuItems>
