@@ -1,24 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import ProductListItem from "../product-list/product-list-item/ProductListItem";
-
 import productsAPI from '../../api/products-api';
 
 export default function Search() {
     const [query, setQuery] = useState('');
     const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const searchQuery = params.get('search') || '';
 
-        const results = await productsAPI.searchProducts(query);
+        setQuery(searchQuery);
+
+        if (searchQuery) {
+            fetchProducts(searchQuery);
+        }
+    }, [location.search]);
+
+    const fetchProducts = async (searchQuery) => {
+        const results = await productsAPI.searchProducts(searchQuery);
 
         setProducts(results);
     };
 
+    const handleSearch = async (e) => {
+        e.preventDefault();
+
+        const params = new URLSearchParams();
+
+        if (query) {
+            params.set('search', query);
+        }
+
+        navigate(`?${params.toString()}`);
+
+        fetchProducts(query);
+    };
+
     return (
         <div>
-            <form className="max-w-md mx-auto" onSubmit={handleSearch}>
+            <form className="max-w-md mx-auto mt-12" onSubmit={handleSearch}>
                 <label
                     htmlFor="default-search"
                     className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -51,7 +76,6 @@ export default function Search() {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         required=""
-
                     />
                     <button
                         type="submit"
@@ -75,6 +99,7 @@ export default function Search() {
                     </div>
                 )}
             </div>
+
         </div>
     );
 }
