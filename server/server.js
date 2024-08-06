@@ -1360,6 +1360,36 @@
                 "image": "https://istyle.bg/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/i/p/iphone_15_pro_natural_titanium_pdp_image_position-1__en-us_1_3_3.jpg",
                 "_createdOn": 1722511664497,
                 "_id": "88f39621-f62d-4829-8b8e-10a3437779db"
+            },
+            "cabf498a-6b0b-4e36-ba42-2b1f2e8be2db": {
+                "_ownerId": "60f0cf0b-34b0-4abd-9769-8c42f830dffc",
+                "name": "Acer Nitro 5",
+                "category": "Laptop",
+                "price": "900",
+                "description": "skjdfnajslknfdsajkfnadskjlfndsnflaksdfljkasdnflkjdjkfn",
+                "image": "https://www.digitalen.bg/wp-content/uploads/2021/06/acer-nitro-5.jpg",
+                "_createdOn": 1722952104945,
+                "_id": "cabf498a-6b0b-4e36-ba42-2b1f2e8be2db"
+            },
+            "53a8a08c-8917-4ed1-83a5-cf215a2e3a7a": {
+                "_ownerId": "10340875-37de-4e67-b2ec-cb2502118f93",
+                "name": "MSI Thin GF63 ",
+                "category": "Laptop",
+                "price": "899",
+                "description": "MSI Thin GF63 12V/12U · Intel Core i7-12650H (1.7/4.7GHz, 24M) · NVIDIA RTX 4060 8GB GDDR6 DLSS 3 · 32 GB DDR4 3200 MHz · 1TB M.2 NVMe SSD · 15.6\" (39.62 см) Full HD",
+                "image": "https://pcbuild.bg/assets/products/000/000/049/000000049178--msi-gf63-thin-9sc-636xbg.png",
+                "_createdOn": 1722956161379,
+                "_id": "53a8a08c-8917-4ed1-83a5-cf215a2e3a7a"
+            },
+            "00414679-e24d-4fa6-bda0-f991c50821c4": {
+                "_ownerId": "10340875-37de-4e67-b2ec-cb2502118f93",
+                "name": "Samsung Galaxy Tab S9 Ultra",
+                "category": "Tablet",
+                "price": "1100",
+                "description": "12.4-инчов Dynamic AMOLED с 120Hz · 13MP + 8MP камера на гърба · 10090 mAh батерия · 8-ядрен процесор.",
+                "image": "https://technome.bg/image/cache/catalog/pc-import/SAMSUNG/0006301552367/00063061121581-446x446.jpg",
+                "_createdOn": 1722956429718,
+                "_id": "00414679-e24d-4fa6-bda0-f991c50821c4"
             }
         },
         recipes: {
