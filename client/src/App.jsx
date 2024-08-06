@@ -15,6 +15,7 @@ import Search from "./components/search/Search";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import PrivateGuard from "./components/common/PrivateGuard";
 import PublicGuard from "./components/common/PublicGuard";
+// import Footer from "./components/footer/Footer";
 
 function App() {
 
@@ -43,6 +44,8 @@ function App() {
                 </Route>
 
             </Routes>
+
+            {/* <Footer /> */}
         </AuthContextProvider>
     )
 }
