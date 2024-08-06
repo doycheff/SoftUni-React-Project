@@ -20,10 +20,12 @@ export default function Header() {
             { name: 'Home', href: '/', current: false },
             { name: 'Products', href: '/products', current: false },
             { name: 'Create an item', href: '/products/create', current: false },
+            { name: 'Search', href: '/search', current: false },
         ]
         : [
             { name: 'Home', href: '/', current: false },
             { name: 'Products', href: '/products', current: false },
+            { name: 'Search', href: '/search', current: false },
         ];
 
     return (

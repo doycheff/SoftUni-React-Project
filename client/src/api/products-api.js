@@ -30,6 +30,14 @@ const getUserProducts = async (_ownerId) => {
     return productsUser;
 }
 
+const searchProducts = async (query) => {
+    const result = await request.get(`${BASE_URL}?where=name%20LIKE%20%22${query}%22`)
+
+    const searchedProducts = Object.values(result);
+
+    return searchedProducts;
+}
+
 const getOne = (productId) => request.get(`${BASE_URL}/${productId}`);
 
 const createProduct = (productData) => request.post(`${BASE_URL}`, productData);
@@ -46,6 +54,7 @@ const productsAPI = {
     createProduct,
     deleteProduct,
     updateProduct,
+    searchProducts
 }
 
 export default productsAPI;

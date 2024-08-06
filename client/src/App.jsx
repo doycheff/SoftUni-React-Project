@@ -10,6 +10,7 @@ import ProductCreate from "./components/product-create/ProductCreate";
 import ProductEdit from "./components/product-edit/ProductEdit";
 import ProductDetails from "./components/product-details/ProductDetails";
 import MyProfile from "./components/my-profile/MyProfile";
+import Search from "./components/search/Search";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
 import PrivateGuard from "./components/common/PrivateGuard";
@@ -24,9 +25,10 @@ function App() {
 
             <Routes>
                 <Route path='/' element={<Home />} />
-
                 <Route path='/products' element={<Products />} />
                 <Route path='/products/:productId/details' element={<ProductDetails />} />
+                <Route path='/search' element={<Search />} />
+
 
                 <Route element={<PublicGuard />}>
                     <Route path='/login' element={<Login />} />
