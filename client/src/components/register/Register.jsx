@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-
 import { useForm } from "../../hooks/useForm";
 import { useRegister } from "../../hooks/useAuth";
-
-import logo from "../../assets/logo.jpg"
+import logo from "../../assets/logo.jpg";
+import { useState } from 'react';
 
 const initialValues = { email: '', password: '', repass: '' };
 
@@ -16,19 +15,21 @@ const validateForm = (values) => {
 };
 
 export default function Register() {
+    const [formErrors, setFormErrors] = useState({});
+    
     const register = useRegister();
     const navigate = useNavigate();
 
     const registerHandler = async ({ email, password, repass }) => {
-        if (password != repass) {
-            return errors({ general: 'Passwords don\'t match!' });
+        if (password !== repass) {
+            return setFormErrors({ general: 'Passwords don\'t match!' });
         }
 
         try {
-            await register(email, password)
-            navigate('/')
+            await register(email, password);
+            navigate('/');
         } catch (err) {
-            errors({ general: err.message });
+            setFormErrors({ general: err.message });
         }
     }
 
@@ -37,7 +38,7 @@ export default function Register() {
         errors,
         changeHandler,
         submitHandler
-    } = useForm(initialValues, registerHandler, validateForm)
+    } = useForm(initialValues, registerHandler, validateForm);
 
     return (
         <>
@@ -55,7 +56,6 @@ export default function Register() {
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={submitHandler} className="space-y-6">
-
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
@@ -119,11 +119,13 @@ export default function Register() {
                                 )}
                             </div>
                         </div>
-                        {errors.general && (
+
+                        {formErrors.general && (
                             <div className="mb-4 text-sm text-red-500">
-                                {errors.general}
+                                {formErrors.general}
                             </div>
                         )}
+
                         <div>
                             <button
                                 type="submit"
@@ -143,5 +145,5 @@ export default function Register() {
                 </div>
             </div>
         </>
-    )
+    );
 }

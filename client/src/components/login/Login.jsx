@@ -4,6 +4,7 @@ import { useLogin } from "../../hooks/useAuth";
 import { useForm } from "../../hooks/useForm";
 
 import logo from "../../assets/logo.jpg"
+import { useState } from "react";
 
 const initialValues = { email: '', password: '' };
 
@@ -15,6 +16,8 @@ const validateForm = (values) => {
 };
 
 export default function Login() {
+    const [formErrors, setFormErrors] = useState({});
+
     const login = useLogin();
     const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ export default function Login() {
             await login(email, password)
             navigate('/')
         } catch (err) {
-            errors({ general: err.message });
+            setFormErrors({ general: 'Email or password don\'t match' });
         }
     }
     const {
@@ -92,9 +95,9 @@ export default function Login() {
                                 )}
                             </div>
                         </div>
-                        {errors.general && (
+                        {formErrors.general && (
                             <div className="mb-4 text-sm text-red-500">
-                                {errors.general}
+                                {formErrors.general}
                             </div>
                         )}
                         <div>
