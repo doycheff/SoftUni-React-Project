@@ -10,13 +10,8 @@ const getAll = async () => {
     return products;
 }
 
-const getLatest = async () => {
-    const urlSearchParams = new URLSearchParams({
-        sortBy: '_createdOn',
-        pageSize: 3,
-    })
-    
-    const result = await request.get(`${BASE_URL}?${urlSearchParams.toString()}`);
+const getLatest = async () => {    
+    const result = await request.get(`${BASE_URL}?sortBy=_createdOn%20desc&offset=0&pageSize=3`);
 
     const latestProducts = Object.values(result);
 
