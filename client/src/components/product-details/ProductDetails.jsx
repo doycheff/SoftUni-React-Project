@@ -1,18 +1,23 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import productsAPI from '../../api/products-api';
 import { useGetOneProduct } from '../../hooks/useProducts';
+import { useBuyerEmail, useHasBought } from '../../hooks/useBuyProduct';
 import { useAuthContext } from '../../contexts/AuthContext';
 import Modal from '../modal-dialog/ModalDialog';
 
 export default function ProductDetails() {
     const { productId } = useParams();
     const [product, setProduct] = useGetOneProduct(productId);
-    const { userId } = useAuthContext();
+    const { userId, email } = useAuthContext();
     const navigate = useNavigate();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+    
+    const [buyerEmail, updateBuyerEmail] = useBuyerEmail(productId);
+    const [hasBought, updateHasBought] = useHasBought(productId);
 
     const showDeleteModal = () => setIsDeleteModalOpen(true);
     const hideDeleteModal = () => setIsDeleteModalOpen(false);
@@ -20,21 +25,31 @@ export default function ProductDetails() {
     const showBuyModal = () => setIsBuyModalOpen(true);
     const hideBuyModal = () => setIsBuyModalOpen(false);
 
+    const showSuccessModal = () => setIsSuccessModalOpen(true);
+    const hideSuccessModal = () => {
+        setIsSuccessModalOpen(false);
+        navigate('/products');
+    };
+
     const deleteProductSubmitHandler = async () => {
         try {
             await productsAPI.deleteProduct(productId);
-
             navigate('/products');
         } catch (err) {
             console.log(err.message);
         }
-    }
+    };
 
     const buyProductSubmitHandler = async () => {
-        // TODO: buy functionality
-        alert('Product bought successfully!');
-        navigate('/products');
-    }
+        try {
+            updateBuyerEmail(email);
+            updateHasBought(true);
+            
+            showSuccessModal();
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     const isOwner = userId == product._ownerId;
 
@@ -65,8 +80,17 @@ export default function ProductDetails() {
                             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                                 {product.description}
                             </dd>
+
+                        </div>
+                        <div className="px-4 py-6 sm:grid sm:gap-4 sm:px-2 text-center">
+                            {buyerEmail && (
+                                <p className="text-md font-medium leading-6 text-green-600 mt-4">
+                                    Buyer: {buyerEmail}
+                                </p>
+                            )}
                         </div>
                     </dl>
+
                     <div className="mt-4 flex justify-center space-x-4">
                         {isOwner
                             ? (<>
@@ -86,13 +110,15 @@ export default function ProductDetails() {
                                     </button>
                                 </Link>
                             </>)
-                            : <button
-                                onClick={showBuyModal}
-                                type="button"
-                                className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                            >
-                                Buy
-                            </button>
+                            : userId && !hasBought && (
+                                <button
+                                    onClick={showBuyModal}
+                                    type="button"
+                                    className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                >
+                                    Buy
+                                </button>
+                            )
                         }
                     </div>
                 </div>
@@ -123,6 +149,16 @@ export default function ProductDetails() {
                 message={`Are you sure you want to buy ${product.name}?`}
                 confirmText="Buy"
                 cancelText="Cancel"
+                buttonColor="bg-green-600 hover:bg-green-700"
+            />
+
+            <Modal
+                isOpen={isSuccessModalOpen}
+                onClose={hideSuccessModal}
+                title="Purchase Successful"
+                message={`You have successfully bought ${product.name}!`}
+                confirmText="OK"
+                onConfirm={hideSuccessModal}
                 buttonColor="bg-green-600 hover:bg-green-700"
             />
         </div>
