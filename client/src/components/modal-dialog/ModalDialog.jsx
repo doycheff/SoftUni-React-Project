@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Modal({
     isOpen,
     onClose,
@@ -8,7 +10,6 @@ export default function Modal({
     cancelText,
     buttonColor
 }) {
-
     if (!isOpen) return null;
 
     return (
@@ -17,12 +18,14 @@ export default function Modal({
                 <h2 className="text-lg font-semibold mb-4">{title}</h2>
                 <p>{message}</p>
                 <div className="mt-4 flex justify-end space-x-2">
-                    <button
-                        onClick={onClose}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded"
-                    >
-                        {cancelText}
-                    </button>
+                    {cancelText && (
+                        <button
+                            onClick={onClose}
+                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded"
+                        >
+                            {cancelText}
+                        </button>
+                    )}
                     <button
                         onClick={onConfirm}
                         className={`font-semibold py-2 px-4 rounded text-white ${buttonColor}`}
