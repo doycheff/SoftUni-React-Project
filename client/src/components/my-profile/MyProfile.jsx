@@ -26,7 +26,7 @@ export default function MyProfile() {
                                 <img
                                     alt={product.name}
                                     src={product.image}
-                                    className="h-32 w-32 flex-none rounded-lg bg-gray-50 object-cover"
+                                    className="h-32 w-34 flex-none rounded-lg bg-gray-50 object-cover"
                                 />
                                 <div className="min-w-0 flex-auto">
                                     <p className="text-md font-semibold leading-6 text-gray-900">{product.name}</p>
