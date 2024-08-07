@@ -7,14 +7,13 @@ export default function LatestProduct({
     image
 }) {
     return (
-        <div className="group relative bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="transition-transform transform hover:scale-105 group relative bg-white rounded-lg shadow-md overflow-hidden">
             <Link to={`/products/${_id}/details`} >
                 <div className="aspect-w-1 aspect-h-1 overflow-hidden lg:h-80">
                     <img
                         src={image}
                         alt={name}
                         className="object-cover object-center w-full h-full"
-                        style={{ backgroundColor: 'transparent' }} // Ensure transparency
                     />
                 </div>
             </Link>
@@ -29,7 +28,7 @@ export default function LatestProduct({
                     <Link to={`/products/${_id}/details`}>
                         <button
                             type="button"
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center transition-transform transform hover:scale-105"
                         >
                             Details
                         </button>

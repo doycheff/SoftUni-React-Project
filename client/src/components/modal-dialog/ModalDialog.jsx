@@ -21,14 +21,14 @@ export default function Modal({
                     {cancelText && (
                         <button
                             onClick={onClose}
-                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded"
+                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded transition-transform transform hover:scale-105"
                         >
                             {cancelText}
                         </button>
                     )}
                     <button
                         onClick={onConfirm}
-                        className={`font-semibold py-2 px-4 rounded text-white ${buttonColor}`}
+                        className={`transition-transform transform hover:scale-105 font-semibold py-2 px-4 rounded text-white ${buttonColor}`}
                     >
                         {confirmText}
                     </button>

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useGetOneProduct } from "../../hooks/useProducts";
 import productsAPI from "../../api/products-api";
@@ -141,12 +141,19 @@ export default function ProductEdit() {
                     </div>
                 )}
                 <div className="mt-6 flex items-center justify-end gap-x-6">
+                    <Link
+                        to={`/products/${product._id}/details`}
+                        className="text-white bg-amber-500 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800 transition-transform transform hover:scale-105"
+                    >
+                        Cancel
+                    </Link>
                     <button
                         type="submit"
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-transform transform hover:scale-105"
                     >
                         Edit
                     </button>
+
                 </div>
             </form>
         </div>
