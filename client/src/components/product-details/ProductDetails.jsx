@@ -85,7 +85,7 @@ export default function ProductDetails() {
                         <div className="px-4 py-6 sm:grid sm:gap-4 sm:px-2 text-center">
                             {buyerEmail && (
                                 <p className="text-md font-medium leading-6 text-green-600 mt-4">
-                                    Buyer: {buyerEmail}
+                                    Buyer: {buyerEmail?.split('@')[0]}
                                 </p>
                             )}
                         </div>
