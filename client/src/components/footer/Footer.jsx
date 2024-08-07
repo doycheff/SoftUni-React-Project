@@ -1,44 +1,22 @@
-import { Link } from 'react-router-dom';
-
-import logo from "../../assets/logo.jpg"
-
+import logo from "../../assets/logo.jpg";
 
 export default function Footer() {
     return (
         <footer className="bg-gray-800 text-white py-8">
             <div className="container mx-auto px-4">
-                <div className="flex flex-wrap justify-between">
+                <div className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-28">
                     <img
                         alt="Your Company"
                         src={logo}
-                        className="rounded-md  h-20 w-auto"
+                        className="rounded-md h-20 w-auto"
                     />
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                    <div className="text-center">
                         <h1 className="text-2xl font-bold mb-2">TechHaven</h1>
-                        <p className="text-sm">© {new Date().getFullYear()} TechHaven. All rights reserved.</p>
+                        <p className="text-sm">© {new Date().getFullYear()} All rights reserved.</p>
                     </div>
-
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                        <h2 className="text-lg font-semibold mb-2">Quick Links</h2>
-                        <ul>
-                            <li>
-                                <Link to="/" className="text-gray-400 hover:text-white">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/about" className="text-gray-400 hover:text-white">About Us</Link>
-                            </li>
-                            <li>
-                                <Link to="/services" className="text-gray-400 hover:text-white">Services</Link>
-                            </li>
-                            <li>
-                                <Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                    <div className="text-center ">
                         <h2 className="text-lg font-semibold mb-2">Follow Us</h2>
-                        <div className="flex space-x-4">
+                        <div className="flex justify-center space-x-4">
                             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
                                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M22 12.07c0-5.28-4.22-9.5-9.5-9.5s-9.5 4.22-9.5 9.5c0 4.66 3.33 8.54 7.75 9.29v-6.56h-2.3v-2.43h2.3v-1.8c0-2.28 1.36-3.54 3.39-3.54.97 0 1.81.07 2.06.1v2.39h-1.42c-1.12 0-1.34.54-1.34 1.33v1.76h2.69l-.35 2.43h-2.34v6.56c4.42-.75 7.75-4.63 7.75-9.29z" />
