@@ -20,7 +20,7 @@ export default function ProductCreate() {
             const { _id: productId } = await createProduct(values);
             navigate(`/products/${productId}/details`);
         } catch (err) {
-            setErrors({ general: err.message });
+            errors({ general: err.message });
         }
     };
 
