@@ -2,16 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useGetOneProduct } from "../../hooks/useProducts";
 import productsAPI from "../../api/products-api";
-
-const validateForm = (values) => {
-    const errors = {};
-    if (!values.name) errors.name = "Name is required";
-    if (!values.category) errors.category = "Category is required";
-    if (!values.price) errors.price = "Price is required";
-    if (!values.description) errors.description = "Description is required";
-    if (!values.image) errors.image = "Image URL is required";
-    return errors;
-};
+import { productValidator } from "../../utils/productValidator";
 
 export default function ProductEdit() {
     const navigate = useNavigate();
@@ -24,9 +15,13 @@ export default function ProductEdit() {
         changeHandler,
         submitHandler
     } = useForm(product, async (values) => {
-        await productsAPI.updateProduct(productId, values);
-        navigate(`/products/${productId}/details`);
-    }, validateForm);
+        try {
+            await productsAPI.updateProduct(productId, values);
+            navigate(`/products/${productId}/details`);
+        } catch (err) {
+            errors({ general: err.message });
+        }
+    }, productValidator);
 
     return (
         <div className="flex items-center justify-center min-h-screen">
@@ -39,7 +34,7 @@ export default function ProductEdit() {
                     <div>
                         <label
                             htmlFor="name"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Name
                         </label>
@@ -58,7 +53,7 @@ export default function ProductEdit() {
                     <div>
                         <label
                             htmlFor="category"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Category
                         </label>
@@ -81,7 +76,7 @@ export default function ProductEdit() {
                     <div className="relative">
                         <label
                             htmlFor="price"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Price
                         </label>
@@ -100,7 +95,7 @@ export default function ProductEdit() {
                     <div>
                         <label
                             htmlFor="description"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Description
                         </label>
@@ -117,7 +112,7 @@ export default function ProductEdit() {
                     </div>
                     <div>
                         <label
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                             htmlFor="image"
                         >
                             Image URL
@@ -142,7 +137,7 @@ export default function ProductEdit() {
                 )}
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <Link
-                        to={`/products/${product._id}/details`}
+                        to={`/products/${productId}/details`}
                         className="text-white bg-amber-500 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800 transition-transform transform hover:scale-105"
                     >
                         Cancel
@@ -153,7 +148,6 @@ export default function ProductEdit() {
                     >
                         Edit
                     </button>
-
                 </div>
             </form>
         </div>

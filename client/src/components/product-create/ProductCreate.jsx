@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-
 import { useForm } from "../../hooks/useForm";
 import { useCreateProduct } from "../../hooks/useProducts";
+import { productValidator } from "../../utils/productValidator";
 
 const initialValues = {
     name: '',
@@ -9,16 +9,6 @@ const initialValues = {
     price: '',
     description: '',
     image: ''
-};
-
-const validateForm = (values) => {
-    const errors = {};
-    if (!values.name) errors.name = "Name is required";
-    if (!values.category) errors.category = "Category is required";
-    if (!values.price) errors.price = "Price is required";
-    if (!values.description) errors.description = "Description is required";
-    if (!values.image) errors.image = "Image URL is required";
-    return errors;
 };
 
 export default function ProductCreate() {
@@ -30,7 +20,7 @@ export default function ProductCreate() {
             const { _id: productId } = await createProduct(values);
             navigate(`/products/${productId}/details`);
         } catch (err) {
-            errors({ general: err.message });
+            setErrors({ general: err.message });
         }
     };
 
@@ -39,7 +29,7 @@ export default function ProductCreate() {
         errors,
         changeHandler,
         submitHandler
-    } = useForm(initialValues, createHandler, validateForm);
+    } = useForm(initialValues, createHandler, productValidator);
 
     return (
         <div className="flex items-center justify-center min-h-screen">
@@ -51,7 +41,7 @@ export default function ProductCreate() {
                     <div>
                         <label
                             htmlFor="name"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Name
                         </label>
@@ -70,7 +60,7 @@ export default function ProductCreate() {
                     <div>
                         <label
                             htmlFor="category"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Category
                         </label>
@@ -93,7 +83,7 @@ export default function ProductCreate() {
                     <div className="relative">
                         <label
                             htmlFor="price"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Price
                         </label>
@@ -112,7 +102,7 @@ export default function ProductCreate() {
                     <div>
                         <label
                             htmlFor="description"
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                         >
                             Description
                         </label>
@@ -129,7 +119,7 @@ export default function ProductCreate() {
                     </div>
                     <div>
                         <label
-                            className="block mb-2 text-sm font-medium text-gray-50 dark:text-gray-900"
+                            className="block mb-2 text-sm font-medium text-gray-900"
                             htmlFor="image"
                         >
                             Image URL
