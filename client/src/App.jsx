@@ -16,38 +16,40 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import PrivateGuard from "./components/common/PrivateGuard";
 import PublicGuard from "./components/common/PublicGuard";
 import Error from "./components/error/Error";
-// import Footer from "./components/footer/Footer";
+import Footer from "./components/footer/Footer";
 
 function App() {
 
 
     return (
         <AuthContextProvider>
-            <Header />
+            <div className="flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-grow">
+                    <Routes>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/products' element={<Products />} />
+                        <Route path='/products/:productId/details' element={<ProductDetails />} />
+                        <Route path='/search' element={<Search />} />
 
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/products' element={<Products />} />
-                <Route path='/products/:productId/details' element={<ProductDetails />} />
-                <Route path='/search' element={<Search />} />
 
+                        <Route element={<PublicGuard />}>
+                            <Route path='/login' element={<Login />} />
+                            <Route path='/register' element={<Register />} />
+                        </Route>
 
-                <Route element={<PublicGuard />}>
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/register' element={<Register />} />
-                </Route>
+                        <Route element={<PrivateGuard />}>
+                            <Route path='/myProfile' element={<MyProfile />} />
+                            <Route path='/logout' element={<Logout />} />
+                            <Route path='/products/create' element={<ProductCreate />} />
+                            <Route path='/products/:productId/edit' element={<ProductEdit />} />
+                        </Route>
 
-                <Route element={<PrivateGuard />}>
-                    <Route path='/myProfile' element={<MyProfile />} />
-                    <Route path='/logout' element={<Logout />} />
-                    <Route path='/products/create' element={<ProductCreate />} />
-                    <Route path='/products/:productId/edit' element={<ProductEdit />} />
-                </Route>
-
-                <Route path="*" element={<Error />} />
-            </Routes>
-
-            {/* <Footer /> */}
+                        <Route path="*" element={<Error />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </div>
         </AuthContextProvider>
     )
 }
